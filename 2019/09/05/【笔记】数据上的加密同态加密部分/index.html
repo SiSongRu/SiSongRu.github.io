@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MyFirstBlog | Jkq&#39;s Personal Blog</title>
+  <title>数据上的同态加密 | Jkq&#39;s Personal Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言使用github pages服务搭建博客的好处有：  全是静态文件，访问速度快； 免费方便，不用花一分钱就可以搭建一个自由的个人博客，不需要服务器不需要后台； 可以随意绑定自己的域名，不仔细看的话根本看不出来你的网站是基于github的；">
-<meta name="keywords" content="杂谈,测试">
+  <meta name="description" content="#【笔记】数据上的加密同态加密部分 同态加密用于保护数据机密性最早由Rivest等人[11]于1978 年提出，最初称为隐私同态（privacy homomorphism，这里 privacy 等同于 confidentiality，后面叙述中我们所提到的隐私都是指机密性）。隐私同态被提出后，密码学研究者相继提出了许多具有同态性质的加密方案，这些加密方案在安全多方计算密 码协议[12,13]、保密">
+<meta name="keywords" content="同态加密，论文阅读">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyFirstBlog">
-<meta property="og:url" content="http://yoursite.com/2019/09/05/MyFirstBlog/index.html">
+<meta property="og:title" content="数据上的同态加密">
+<meta property="og:url" content="http://yoursite.com/2019/09/05/【笔记】数据上的加密同态加密部分/index.html">
 <meta property="og:site_name" content="Jkq&#39;s Personal Blog">
-<meta property="og:description" content="前言使用github pages服务搭建博客的好处有：  全是静态文件，访问速度快； 免费方便，不用花一分钱就可以搭建一个自由的个人博客，不需要服务器不需要后台； 可以随意绑定自己的域名，不仔细看的话根本看不出来你的网站是基于github的；">
-<meta property="og:locale" content="ch">
-<meta property="og:updated_time" content="2019-09-05T13:01:32.614Z">
+<meta property="og:description" content="#【笔记】数据上的加密同态加密部分 同态加密用于保护数据机密性最早由Rivest等人[11]于1978 年提出，最初称为隐私同态（privacy homomorphism，这里 privacy 等同于 confidentiality，后面叙述中我们所提到的隐私都是指机密性）。隐私同态被提出后，密码学研究者相继提出了许多具有同态性质的加密方案，这些加密方案在安全多方计算密 码协议[12,13]、保密">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-06T07:32:16.475Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyFirstBlog">
-<meta name="twitter:description" content="前言使用github pages服务搭建博客的好处有：  全是静态文件，访问速度快； 免费方便，不用花一分钱就可以搭建一个自由的个人博客，不需要服务器不需要后台； 可以随意绑定自己的域名，不仔细看的话根本看不出来你的网站是基于github的；">
+<meta name="twitter:title" content="数据上的同态加密">
+<meta name="twitter:description" content="#【笔记】数据上的加密同态加密部分 同态加密用于保护数据机密性最早由Rivest等人[11]于1978 年提出，最初称为隐私同态（privacy homomorphism，这里 privacy 等同于 confidentiality，后面叙述中我们所提到的隐私都是指机密性）。隐私同态被提出后，密码学研究者相继提出了许多具有同态性质的加密方案，这些加密方案在安全多方计算密 码协议[12,13]、保密">
   
     <link rel="alternative" href="/atom.xml" title="Jkq&#39;s Personal Blog" type="application/atom+xml">
   
@@ -163,19 +163,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MyFirstBlog" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【笔记】数据上的加密同态加密部分" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MyFirstBlog
+      数据上的同态加密
     </h1>
   
 
         
-        <a href="/2019/09/05/MyFirstBlog/" class="archive-article-date">
+        <a href="/2019/09/05/【笔记】数据上的加密同态加密部分/" class="archive-article-date">
   	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
 </a>
         
@@ -183,19 +183,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用github pages服务搭建博客的好处有：</p>
-<ol>
-<li>全是静态文件，访问速度快；</li>
-<li>免费方便，不用花一分钱就可以搭建一个自由的个人博客，不需要服务器不需要后台；</li>
-<li>可以随意绑定自己的域名，不仔细看的话根本看不出来你的网站是基于github的；</li>
-</ol>
+        <p>#【笔记】数据上的加密同态加密部分</p>
+<p>同态加密用于保护数据机密性最早由Rivest等人[11]于1978 年提出，最初称为隐私同态（privacy homomorphism，这里 privacy 等同于 confidentiality，后面叙述中我们所提到的隐私都是指机密性）。隐私同态被提出后，密码学研究者相继提出了许多具有同态性质的加密方案，这些加密方案在安全多方计算密 码协议[12,13]、保密信息检索(private information retrieval)[14,15]、 安全电子投票系统[16]中被广泛应用。 </p>
 <a id="more"></a>
 
-<ol start="4">
-<li>数据绝对安全，基于github的版本管理，想恢复到哪个历史版本都行；</li>
-<li>博客内容可以轻松打包、转移、发布到其它平台；</li>
-<li>等等；</li>
-</ol>
+<p>同态加密有以下四个算法构成：</p>
+<p>​    -密钥生成算法（KeyGen）：KeyGen 输入安全参数，输出一对公私钥</p>
+<p>​    -加密算法（Enc）：；Enc 输入公 钥和明文，输出对应的密文</p>
+<p>​    -求值算法（Eval）：；Eval 输入公钥，一组密文，要计 算的函数 f，输出一个新的密文</p>
+<p>​    -解密算法（Dec）：；Dec 输入私钥和密文，输出密文对应的明文</p>
+<p>​    详细方案如下：</p>
+<p>​    （1）密钥生成算法产生公钥$P_k$和私钥$S_k$</p>
+<p>​    （2）给定明文数据$x_1$, $x_2, …, x_n$通过加密算法$Enc$加密对应密文$[x_1], [x_2], …, [x_n]$</p>
+<p>​    （3）求值算法$Eval$能够在密文上计算函数$f$, 其计算得到的新的密文满足下列等式：</p>
+<p>​        $Dec(S_k, Eval(P_k,[x_1], …, [x_n], f))=f(x_1, …, x_n)$，即在密文上计算的结果和在明文上计算的结果相等。</p>
+<p>​    根据在密文上支持的函数范围，可以将同态加密方案分为两类：</p>
+<p>​    $f$若可为任意函数，则称为完全同态加密方案，否则成为部分同态加密方案</p>
+<p>部分同态加密：</p>
+<p>​    部分同态加密方案支持的函数 f 为特定函数，应用广泛的部分同态加密方案包括：Goldwasser-Micali 加密方案[17]，其支 持在加密比特上计算异或；Paillier 加密方案[18]，支持加法运算； El Gamal 加密方案[19]，支持乘法运算；基于双线性对的 BGN 加密方案[20]和基于格的 BGN 加密方案[21]，支持多次加法，或 者一次乘法运算之后多次加法运算。 对于只需要在密文上计算上述特定函数的应用场景，使用部分同态加密方案能够在数据的密文上高效地完成计算功能， 同时这些同态加密方案达到语义安全(semantic security)，因此能 够保证数据的机密性。</p>
+<p>​    部分同态加密方案能够在数据的密文上高效地完成计算功能， 同时这些同态加密方案达到语义安全(semantic security)，因此能 够保证数据的机密性。</p>
+<p>完全同态加密：</p>
+<p>​    完全同态加密或全同态加密（ fully homomorphic encryption，FHE），支持在密文上计算任意函数，并达到语义安全，因此理论上来说，全同态加密方案是既能够保护数据机密<br>性又不损失数据可用性的最佳选择。</p>
+<p>​    2009 年，Gentry[22,23]基于格上困难问题给出了第一个语义 安全的全同态加密的构造方案 Gentry09。其基本思想如下：首 先将函数 f 编码成布尔电路形式。明文以 0，1 比特串的形式被逐比特加密，加密算法通过引入“错误”来保证明文的机密性。每在密文上进行一个门电路的计算，新生成的密文的“错误”都会增加，当增加到一定程度就会引起解密的错误。这种只能计算较浅深度电路对应的函数的同态加密方案称为“一定程度 同态加密方案”（somewhat homomorphic encryption scheme, SWHE），这种类型的同态加密方案只能用于进行简单的运算，因为复杂运算在编码之后的电路深度较深，解密后得到的明文 由于“错误”的影响而不正确。为了将 SWHE 方案转化成对电 路深度没有要求的全同态加密方案，</p>
+<p>​    Gentry 提出了自举 （bootstrapping）技术。具体来说，Gentry 给出了一种“recryption” 操作：将密文和加密的私钥作为输入计算解密函数。该过程结束后得到的密文和原密文对应相同的明文，但新的密文中包含的“错误”降低了，从而允许继续在密文上进行计算，直到错误累积达到阈值，再次执行上述“recryption”操作，如此迭代 直至完成整个计算过程为止。</p>
+<p>综上所述，尽管理论上全同态加密是解决加密数据上计算这一问题的最佳方案，但是由于方案本身、计算模型以及高安全性带来的开销过高，使其无法在实际中应用。不过一定程度上同态加密方案可用于解决一些乘法深度比较浅的加密数据上 计算的应用问题。Graepel 等人[62]利用 SWHE 在加密数据上运 行一些简单机器学习分类器的学习算法和分类算法，Bost 等人 [63]将加密数据上运行的分类器的种类扩展到超平面分割 （hyperplane decision）、朴素贝叶斯（Navïe Bayes）和决策树 （decision trees）分类器，并使得这三类分类器在加密函数上能 够通过 AdaBoost 框架相结合以提高分类准确性</p>
+<p>[17] Goldwasser S, Micali S. Probabilistic encryption and how to play mental<br>poker keeping secret all private information[C]//Proc of the 14th ACM<br>Symposium on the Theory of Computing. 1982.<br>[18] Paillier P. Public-key cryptosystems based on composite degree residuosity<br>classes[C]//Advances in Cryptology. Berlin: Springer , 1999: 223-238.<br>[19] ElGamal T. A public key cryptosystem and a signature scheme based on<br>discrete logarithms[C]//Advances in cryptology. Berlin: Springer, 1985:<br>10-18.<br>[20] Boneh D, Goh E J, Nissim K. Evaluating 2-DNF formulas on<br>ciphertexts[M]//Theory of Cryptography. Berlin: Springer, 2005: 325-341.<br>[21] Gentry C, Halevi S, Vaikuntanathan V. A simple BGN-type cryptosystem<br>from LWE[M]//Advances in Cryptology. Berlin: Springer, 2010: 506-522</p>
 
       
 
@@ -230,11 +242,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">测试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">同态加密，论文阅读</a>
         		</li>
       		
 		</ul>
@@ -290,7 +298,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/05/MyFirstBlog/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/05/【笔记】数据上的加密同态加密部分/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,9 +312,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/09/05/【笔记】机器学习安全及隐私保护研究进展/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          机器学习安全及隐私保护的研究进展
+        
+      </div>
+    </a>
   
-    <a href="/2019/09/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Rusisong Love Jiran</div>
+  
+    <a href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">机器学习安全性的一些问题</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -337,8 +354,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2019/09/05/MyFirstBlog/", 
-    sourceId: "MyFirstBlog",
+    url: "http://yoursite.com/2019/09/05/【笔记】数据上的加密同态加密部分/", 
+    sourceId: "【笔记】数据上的加密同态加密部分",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -464,11 +481,43 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+                <a href="javascript:void(0)" class="js-tag color2">机器学习安全</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">同态加密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">人工智能</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习，差分隐私</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习安全，隐私</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">同态加密，论文阅读</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">差分隐私，机器学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">差分隐私</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据共享，机器学习，隐私</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">报告</a>
               </li>
             
             <div class="clearfix"></div>

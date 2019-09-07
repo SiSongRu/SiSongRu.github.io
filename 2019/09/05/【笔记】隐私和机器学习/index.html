@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Jkq&#39;s Personal Blog</title>
+  <title>隐私和机器学习 | Jkq&#39;s Personal Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jkq&#39;s Personal Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="【笔记】隐私和机器学习我们（和 Martín Abadi, Úlfar Erlingsson, Ilya Mironov, Ananth Raghunathan, Shuang Song 以及 Kunal Talwar 一起） 在机器学习中的差分隐私上的工作，使得机器学习行业的研究者更容易在这个方向上做出贡献（即使是那些不精通差分隐私里面的数学的人）">
+<meta name="keywords" content="机器学习，差分隐私">
+<meta property="og:type" content="article">
+<meta property="og:title" content="隐私和机器学习">
+<meta property="og:url" content="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/index.html">
 <meta property="og:site_name" content="Jkq&#39;s Personal Blog">
+<meta property="og:description" content="【笔记】隐私和机器学习我们（和 Martín Abadi, Úlfar Erlingsson, Ilya Mironov, Ananth Raghunathan, Shuang Song 以及 Kunal Talwar 一起） 在机器学习中的差分隐私上的工作，使得机器学习行业的研究者更容易在这个方向上做出贡献（即使是那些不精通差分隐私里面的数学的人）">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="e:%5Cblog%5Chexo%5Csource_posts%5C%E3%80%90%E7%AC%94%E8%AE%B0%E3%80%91%E9%9A%90%E7%A7%81%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.assets%5Ctlesmsxl6q.jpeg">
+<meta property="og:image" content="e:%5Cblog%5Chexo%5Csource_posts%5C%E3%80%90%E7%AC%94%E8%AE%B0%E3%80%91%E9%9A%90%E7%A7%81%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.assets%5Cs26z80q6x1.jpeg">
+<meta property="og:updated_time" content="2019-09-06T07:25:53.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jkq&#39;s Personal Blog">
+<meta name="twitter:title" content="隐私和机器学习">
+<meta name="twitter:description" content="【笔记】隐私和机器学习我们（和 Martín Abadi, Úlfar Erlingsson, Ilya Mironov, Ananth Raghunathan, Shuang Song 以及 Kunal Talwar 一起） 在机器学习中的差分隐私上的工作，使得机器学习行业的研究者更容易在这个方向上做出贡献（即使是那些不精通差分隐私里面的数学的人）">
+<meta name="twitter:image" content="e:%5Cblog%5Chexo%5Csource_posts%5C%E3%80%90%E7%AC%94%E8%AE%B0%E3%80%91%E9%9A%90%E7%A7%81%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.assets%5Ctlesmsxl6q.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="Jkq&#39;s Personal Blog" type="application/atom+xml">
   
@@ -158,566 +166,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-【笔记】Cleverhans博文" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-【笔记】隐私和机器学习" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】Cleverhans博文/">机器学习安全性问题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】Cleverhans博文/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#【笔记】Cleverhans博文对抗样本</p>
-<p><strong>两种防御手段：</strong></p>
-<p>​    <strong>对抗训练</strong> 尝试通过主动在训练的时候生成对抗样本去提高模型在测试阶段的泛化性。这个想法是 Szegedy  等人 [SZS13] 首先提出的。但是当时并不可行因为生成对抗样本的计算开销过高。Goodfellow  等人展示了如何通过快速梯度符号法来以低（计算）成本的方式生成对抗样本，并使训练过程中生成大批量的对抗样本变得计算高效  [GSS14]。然后把相同标签的对抗样本和原始样本分配给模型训练–举例来说，我们可能会拿一张猫的图片，对其进行对抗扰动来欺骗模型让它认为这是一个秃鹰，再告诉模型这还是应该被识别成一只猫。在  cleverhans 这个库中提供了对抗训练的一个开源实现，这个<a href="https://github.com/tensorflow/cleverhans/tree/master/examples" target="_blank" rel="noopener">教程</a>提供了它的用法。</p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】Cleverhans博文/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">机器学习安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】Cleverhans博文/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【笔记】全同态加密是否完美" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】全同态加密是否完美/">全同态加密是否完美</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】全同态加密是否完美/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="【笔记】全同态加密是否完美"><a href="#【笔记】全同态加密是否完美" class="headerlink" title="【笔记】全同态加密是否完美"></a>【笔记】全同态加密是否完美</h1><p>全同态加密允许用户通过加密保护数据的私密性，同时允许服务器（比如“云”）对密文执行任意可计算的运算，得到的结果是对相应明文执行相应运算结果的某个有效密文。由此可见，全同态加密完美地解决了云计算环境下的安全计算问题。</p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】全同态加密是否完美/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">同态加密</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】全同态加密是否完美/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【笔记】伯克利观点——AI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】伯克利观点——AI/">伯克利关于人工智能的观点</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】伯克利观点——AI/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="【笔记】伯克利观点——AI未来"><a href="#【笔记】伯克利观点——AI未来" class="headerlink" title="【笔记】伯克利观点——AI未来"></a>【笔记】伯克利观点——AI未来</h1><h2 id="一、文章核心："><a href="#一、文章核心：" class="headerlink" title="一、文章核心："></a>一、文章核心：</h2><p>四大趋势：</p>
-<p>1、关键性任务中的人工智能（Mission-critical AI）：</p>
-<p>​    银行交易，自动驾驶，机器人手术。必须不断适应新环境并且不断学习新技能。入侵检测，处理噪声数据和恶意人为攻击。</p>
-<p>​    挑战：与动态变化环境不断交互，设计可以不断学习和自适应的人工智能系统，作出及时，稳定，安全的决策。</p>
-<p>2、个性化人工智能（Personalized AI）</p>
-<p>​    虚拟助理，自动驾驶等要考虑到用户行为，用户偏好的个性化决策，因此需要采集大量的敏感信息，导致用户隐私泄露。因此要设计支持个性化服务的系统，又要保护用户的隐私和安全。</p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】伯克利观点——AI/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">人工智能</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】伯克利观点——AI/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【笔记】差分隐私保护的机器学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】差分隐私保护的机器学习/">差分隐私保护下的机器学习</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】差分隐私保护的机器学习/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="【笔记】差分隐私保护的机器学习"><a href="#【笔记】差分隐私保护的机器学习" class="headerlink" title="【笔记】差分隐私保护的机器学习"></a>【笔记】差分隐私保护的机器学习</h1><p>数据隐私的发展：</p>
-<p>​    -20世纪60年代，Warner等在[1]中讨论了如何合理地设计调查问卷，使得既能保护参与者的隐私信息，又能提取到有效的统计数据。</p>
-<p>​    -2002，Sweeney提出k-匿名(k-anonymity)隐私。对准标识符进行压缩和泛化处理，将记录划分若干等价类，保证每个等价类内至少有k条记录，保证了不可区分性。但是攻击者所具有的背景知识使得其能在等价类区分个体信息。之后有类似模型提出，如l-差异性[4]，t亲近性[5]，m-不变性[6]。</p>
-<p>早期隐私保护模型存在两个缺点：（1）缺乏严格数学定义，无法量化对隐私的保护或者泄露程度（2）对攻击者的背景知识有限制，但实际上我们无法预知，其也很难进行定义。</p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】差分隐私保护的机器学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习，差分隐私</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】差分隐私保护的机器学习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【笔记】机器学习安全及隐私保护研究进展" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】机器学习安全及隐私保护研究进展/">机器学习安全及隐私保护的研究进展</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】机器学习安全及隐私保护研究进展/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="【笔记】机器学习安全及隐私保护研究进展"><a href="#【笔记】机器学习安全及隐私保护研究进展" class="headerlink" title="【笔记】机器学习安全及隐私保护研究进展"></a>【笔记】机器学习安全及隐私保护研究进展</h1><p><strong>敌手模型：</strong></p>
-<p>​    -敌手目标：</p>
-<p>​    （1）破坏机密性：敌手窃取含有敏感信息的训练数据，通过暴露目标模型信息及其预测结果达到目的。（2）完整性威胁是指敌手诱导模型行为或者使模型在预测中输出指定分类标签。（3）可用性威胁指阻止用户获得模型正确输出或者阻止获取模型本身的一些特性，使其在目标环境下不可信赖。</p>
-<p>​    -敌手知识：</p>
-<p>​    敌手知识包括模型的训练数据及特征、模型结构及参数、决策函数、访问目标模 型得到反馈信息等。根据敌手已知信息的多少， 敌手知识分为有限知识和完全知识。在预测阶段中，根据敌手知识可将攻击分为白盒攻击和黑盒攻击。白盒攻击指敌手得到目标模型，了解模型的内部结构及其参数。黑盒攻击指敌手只能访问目标模型，根据输入数据得到模型输出相应的预测结果。在实际中，白盒攻击不易实现，黑盒攻击更为常见。 </p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】机器学习安全及隐私保护研究进展/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习安全，隐私</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】机器学习安全及隐私保护研究进展/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【笔记】数据上的加密同态加密部分" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】数据上的加密同态加密部分/">数据上的同态加密</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】数据上的加密同态加密部分/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#【笔记】数据上的加密同态加密部分</p>
-<p>同态加密用于保护数据机密性最早由Rivest等人[11]于1978 年提出，最初称为隐私同态（privacy homomorphism，这里 privacy 等同于 confidentiality，后面叙述中我们所提到的隐私都是指机密性）。隐私同态被提出后，密码学研究者相继提出了许多具有同态性质的加密方案，这些加密方案在安全多方计算密 码协议[12,13]、保密信息检索(private information retrieval)[14,15]、 安全电子投票系统[16]中被广泛应用。 </p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】数据上的加密同态加密部分/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">同态加密，论文阅读</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】数据上的加密同态加密部分/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【笔记】机器学习安全性问题及其防御技术研究综述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/">机器学习安全性的一些问题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="【笔记】机器学习安全性问题及其防御技术研究综述"><a href="#【笔记】机器学习安全性问题及其防御技术研究综述" class="headerlink" title="【笔记】机器学习安全性问题及其防御技术研究综述"></a>【笔记】机器学习安全性问题及其防御技术研究综述</h1><p><strong>逃避攻击</strong>：</p>
-<p>​    其主要的攻击策略是攻击者通过产生一些可以成功地逃避安全 系统检测的对抗样本，实现对系统的恶意攻击，给系统的安全性带来严重威胁。</p>
-<p><strong>模仿攻击：</strong></p>
-<p>​    模仿攻击（impersonate attack）是一种和逃避攻 击很类似的欺骗攻击，侧重于对受害者样本的模仿， 目前主要出现在基于机器学习的图像识别系统和语 音识别系统中。攻击者通过产生特定的对抗样本， 使机器学习错误地将人类看起来差距很大的样本错 分类为攻击者想要模仿的样本，从而达到获取受害者权限（基于面部识别、语音控制的实际系统中）的目的</p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">差分隐私，机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【笔记】隐私和机器学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】隐私和机器学习/">隐私和机器学习</a>
+    <h1 class="article-title" itemprop="name">
+      隐私和机器学习
     </h1>
   
 
@@ -731,11 +187,49 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="【笔记】隐私和机器学习"><a href="#【笔记】隐私和机器学习" class="headerlink" title="【笔记】隐私和机器学习"></a>【笔记】隐私和机器学习</h1><p>我们（和 Martín Abadi, Úlfar Erlingsson, Ilya Mironov, Ananth Raghunathan, Shuang Song 以及 Kunal Talwar 一起） 在机器学习中的差分隐私上的工作，使得机器学习行业的研究者更容易在这个方向上做出贡献（即使是那些不精通差分隐私里面的数学的人）</p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】隐私和机器学习/#more">more >></a>
-        
+<a id="more"></a>
+
+<p><strong>PATE框架：</strong></p>
+<p>最关键的一系列算法被命名为 Private Aggregation of Teacher Ensembles (PATE)。在 PATE 框架中的一个最重要的之处，除了它的名字外，就是每个知道怎么训练一个有监督机器学习模型（比如说一个神经网络）的人，都能为机器学习上的差分隐私研究做出贡献。PATE通过精心协调几个不同的机器学习模型的活动，来实现隐私学习。只要你遵循 PATE 框架的的流程，整个模型结果就将有可量化的隐私保证。每个独立的机器模型都是用普通的有监督学习技巧训练的，而我们大多数读者可能已经对怎么攻击 ImageNet 的分类，或其他传统的机器学习方向很熟悉了。</p>
+<p><strong>为什么需要隐私机器学习算法？</strong></p>
+<p>机器学习算法通过研究大量的数据来更新它的参数，并把数据间的关系编码到其中。理想情况下，我们希望这些机器学习的参数是以泛化的形式编码的（例如「吸烟的人更容易患心脏病」），而不是具体在一些特点的训练样本上（例如「Jane Smith」患有心脏病）。不幸的是，在默认情况下，机器学习模型并不会在学习的时候忽略这些（特定的）细节。如果我们希望用机器学习来解决一个重要的问题，比如说做一个癌症诊断模型，那么在我们发布那个机器学习模型的时候（例如，为全世界的医生做个开源的癌症诊断模型），我们也可能无意中透露了有关训练集的信息。恶意的攻击者可以通过检查已发布的模型来得到有关<br>Jane Smith 的隐私信息 [SSS17]。这就是为什么要提出差分隐私。</p>
+<p><strong>PATE的直觉</strong></p>
+<pre><code>PATE 方法为机器学习提供差分隐私的方式是建立在一个简单的直觉之上：如果两个不同的分类器，在没有相同的训练样本的两个不同的训练集上训练，但又能在一个新的输入样本上达成一致（有相同的预测），那么这个决策就不会泄漏关于任何一个训练样本中的相关信息。对于任何一个样本来说，无论是在训练中使用了它的模型还是在训练中没有使用它的模型，都作出了相同的结论，那有没有某个单个的训练样本就都不影响做决定（预测。</code></pre><p>假如说我们有两个在分开的数据上训练的模型。当他们在某个输入上有一致的输出的时候，看起来我们就可以公布它们的决策了。不幸的是，当他们不能取得一致的时候，就不清楚要怎么做了。我们不能分别公布每个模型的的类输出，因为每个模型预测的类可能泄漏训练数据中包含的一些隐私信息。举个例子，假如  Jane Smith 之对其中一个模型的训练数据做了贡献。如果这个模型对一个记录和 Jane  很相似的患者作出了有癌症的预测，而另一个模型的预测结果相反，这就暴露了 Jane  的隐私信息。这个简单的例子说明了为什么要在算法中添加随机性从而来确保它能提供有意义的隐私保障。</p>
+<p><strong>PATE的运作方式</strong></p>
+<p>​    在 PATE 中，我们把隐私数据分割成数据的子集。这些子集作为分区，各自所包含的数据不存在重叠。如果 Jane Smith 的记录在隐私数据集中，如果它就只存在于一个分区中。我们为所有的分区都训练一个机器学习模型，这个模型叫做教师模型。对教师模型的训练方式没有限制。这实际上是PATE 的主要优势之一：它和用来创造教师模型的学习算法无关。所有教师模型都解决相同的机器学习任务，但是他们是独自训练的。也就是说，只有一个教师在训练的过程中分析了<br>Jane Smith 的记录。</p>
+<p>​    在 PATE 里，我们聚合每个单独的教师模型所做的预测，并在上面加噪声，来构造一个共同的预测。我们统计每个类上教师的投票数，再在这个数量上加一些拉布拉斯噪声或高斯噪声。对差分隐私文献熟悉的读者应该会对naisymax 机制有了解。当输入的两个类别从教师模型中得到相等（或近似相等）的票数的时候，噪声会保证又有最多投票数的类别将会是这两个类别中的随机的一个。而另一方面，如果大部分教师模型选择了一个类别，那么在投票结果中加早上不会改变那个类别获得最多的票数这个事实。这个巧妙的设置为加噪聚合机制的预测同时提供了准确性和隐私性，只要教师模型之间的共识度足够高。下图描绘的是教师模型之间共识度很高的情况：也就是向投票统计中添加噪声不会改变候选的标签的情况。</p>
+<p><img src="E:%5Cblog%5Chexo%5Csource_posts%5C%E3%80%90%E7%AC%94%E8%AE%B0%E3%80%91%E9%9A%90%E7%A7%81%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.assets%5Ctlesmsxl6q.jpeg" alt="img"></p>
+<p>实践中，privacy budget 主要取决于各个教师模型的共识度以及添加噪声的多少。教师模型之间的共识度越高，比如大多数票都投给同一个班级，那么它支持的 privacy budget 就越小。在某个特定的点上，在统计教师分配的票数之前加入更大的噪声也会带来比较小的隐私预算。回顾一下，privacy budget 越小，对应的隐私保障就越强。</p>
+<p><strong>PATE两点限制</strong></p>
+<p>聚合机制做出的每个预测都会增加总的 privacy budget。这意味着当有许多标签要预测的时候，总的 privacy budget 会变得特别大，而这时候提供的隐私保障就没什么意义了。 因此，API<br>必须给所有用户的查询数提供一个最大值（上限），并在达到上限的时候，去获取一组新的数据来学习一个新的教师模型聚合到其中。再者，我们不能公开发布教师模型的聚合，否则，攻击者可以通过审查发布的教师模型的内部参数，从而学习出训练所用的隐私数据。</p>
+<p>学生模型是通过一种隐私保护的方式，把从教师聚合模型中的取得的知识迁移过去来训练。当然，噪声聚合机制对此相当重要。学生从一组未标记的公共数据中选择输入，并将这些输入提交给聚合教师模型来标记它们。噪声聚合机制会对这些学生模型用来训练的隐私做出响应。在我们的工作中，我们实验了两个变种：PATE，只在有标记的输入（有监督方式）上训练学生模型，以及<br>PATE-G，在有标注和无标注（用生成对抗网络或者虚拟对抗训练这种半监督的方式）的输入上训练学生模型。<br><a href="https://github.com/HughWen/cleverhans-zh/blob/master/post/img/pate-full.png" target="_blank" rel="noopener"><img src="E:%5Cblog%5Chexo%5Csource_posts%5C%E3%80%90%E7%AC%94%E8%AE%B0%E3%80%91%E9%9A%90%E7%A7%81%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.assets%5Cs26z80q6x1.jpeg" alt="img"></a></p>
+<p><strong>精细聚合机制：</strong></p>
+<p>这种新机制 - Confident Aggregator (置信聚合器)，是具有选择性的。教师模型只需要对学生模型的部分查询做出回复。当教师模型产生了询问后，我们首先检查教师模型间的置信度是否足够高，如果教师模型中最普遍的标签的投票数大于阀值，我们就接受这个学生查询。如果没有，我们就拒绝它。阀值本身是随机选取的，从而为这个选择过程提供隐私。一旦选择了查询，我们就接着用原来的噪声聚合机制，我们为每个投票计数器添加噪声，并返回投票最多的表情，这个过程如下图所示（在有6 个类的任务之上，避免在二分类的条件下产生了带有误导性的简化）。</p>
+<p>在引用中，这意味着我们的 privacy budget 用于两件事情：选择和回答查询。然而，我们选择回答的查询的特点是教师之间达成了高共识度，因此回答这些问题所需的 privacy budget 很少。换句话说，我们可以把 Confident Aggregator 看出是一种机制，它能够过滤掉在原来的机制中消耗了大量 privacy budget 的查询，因此，在学生模型表现水平一致的情况下，Confident Aggregator 提供的总的 privacy budget 小于原来的加噪聚合机制的 privacy budget。下图可视化了这种改进，其用的是原来机制（Simple GNMax）和精准机制（Confident GNMax）在数据独立（data-dep）分析的时候，（学生模型）查询被回答的数量，其中我们应用了 Moments Accountant 或者 Renyi Differential Privacy. </p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -755,16 +249,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】隐私和机器学习/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          机器学习安全性的一些问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/05/【笔记】联邦迁移学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">联邦迁移学习介绍</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -784,171 +346,25 @@
 
 
 
-
-  
-    <article id="post-【笔记】联邦迁移学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/05/【笔记】联邦迁移学习/">联邦迁移学习介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/05/【笔记】联邦迁移学习/" class="archive-article-date">
-  	<time datetime="2019-09-05T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="【笔记】联邦迁移学习"><a href="#【笔记】联邦迁移学习" class="headerlink" title="【笔记】联邦迁移学习"></a>【笔记】联邦迁移学习</h1><p>-沃森系统的弊端引出人工智能中数据不足带来的问题</p>
-<p>-数据合并问题，用户的原始特征X和用户标签Label Y往往不共存，我们仅有X，或者Y无法做训练，因此需要X+Y。</p>
-<p>-但是由于数据的共享性差，简单的数据合并带来严重的隐私问题和利益问题</p>
-<p>过去的差分隐私技术可以使得在一定的概率下不能区分任何个体用户，但是依据现在的法案，只要存在用户隐私泄露的可能性，数据交易就有可能是违法的。</p>
-        
-          <a class="article-more-a" href="/2019/09/05/【笔记】联邦迁移学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据共享，机器学习，隐私</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/05/【笔记】联邦迁移学习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-差分隐私术语表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/02/差分隐私术语表/">差分隐私（Differential Privacy）术语表</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/02/差分隐私术语表/" class="archive-article-date">
-  	<time datetime="2019-09-02T12:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="差分隐私（Differential-Privacy）术语表"><a href="#差分隐私（Differential-Privacy）术语表" class="headerlink" title="差分隐私（Differential Privacy）术语表"></a>差分隐私（Differential Privacy）术语表</h1><p>k-anonymity ：k-匿名</p>
-<p>l-diversity ：l-多样性</p>
-<p>t-closeness ：t-亲密度</p>
-<p>$\delta$-presence：$\delta$-存在性</p>
-<p>Minimality attack ：最小性攻击    </p>
-        
-          <a class="article-more-a" href="/2019/09/02/差分隐私术语表/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">差分隐私</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/02/差分隐私术语表/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/", 
+    sourceId: "【笔记】隐私和机器学习",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+  
+
+  
+
   
 
 
@@ -971,8 +387,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: ture,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
