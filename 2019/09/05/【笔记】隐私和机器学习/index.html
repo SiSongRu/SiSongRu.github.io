@@ -63,13 +63,13 @@
 <meta property="og:site_name" content="Jkq&#39;s Personal Blog">
 <meta property="og:description" content="【笔记】隐私和机器学习我们（和 Martín Abadi, Úlfar Erlingsson, Ilya Mironov, Ananth Raghunathan, Shuang Song 以及 Kunal Talwar 一起） 在机器学习中的差分隐私上的工作，使得机器学习行业的研究者更容易在这个方向上做出贡献（即使是那些不精通差分隐私里面的数学的人）">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/blog/hexo/source/_posts/【笔记】隐私和机器学习.assets/tlesmsxl6q.jpeg">
-<meta property="og:image" content="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/blog/hexo/source/_posts/【笔记】隐私和机器学习.assets/s26z80q6x1.jpeg">
-<meta property="og:updated_time" content="2019-09-08T03:57:34.957Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/tlesmsxl6q.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/s26z80q6x1.jpeg">
+<meta property="og:updated_time" content="2019-09-08T06:55:33.773Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="隐私和机器学习">
 <meta name="twitter:description" content="【笔记】隐私和机器学习我们（和 Martín Abadi, Úlfar Erlingsson, Ilya Mironov, Ananth Raghunathan, Shuang Song 以及 Kunal Talwar 一起） 在机器学习中的差分隐私上的工作，使得机器学习行业的研究者更容易在这个方向上做出贡献（即使是那些不精通差分隐私里面的数学的人）">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/blog/hexo/source/_posts/【笔记】隐私和机器学习.assets/tlesmsxl6q.jpeg">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/tlesmsxl6q.jpeg">
   <link rel="canonical" href="http://yoursite.com/2019/09/05/【笔记】隐私和机器学习/">
 
 
@@ -238,7 +238,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-08 11:57:34" itemprop="dateModified" datetime="2019-09-08T11:57:34+08:00">2019-09-08</time>
+                <time title="Modified: 2019-09-08 14:55:33" itemprop="dateModified" datetime="2019-09-08T14:55:33+08:00">2019-09-08</time>
               </span>
             
           
@@ -266,11 +266,11 @@
 <p><strong>PATE的运作方式</strong></p>
 <p>​    在 PATE 中，我们把隐私数据分割成数据的子集。这些子集作为分区，各自所包含的数据不存在重叠。如果 Jane Smith 的记录在隐私数据集中，如果它就只存在于一个分区中。我们为所有的分区都训练一个机器学习模型，这个模型叫做教师模型。对教师模型的训练方式没有限制。这实际上是PATE 的主要优势之一：它和用来创造教师模型的学习算法无关。所有教师模型都解决相同的机器学习任务，但是他们是独自训练的。也就是说，只有一个教师在训练的过程中分析了<br>Jane Smith 的记录。</p>
 <p>​    在 PATE 里，我们聚合每个单独的教师模型所做的预测，并在上面加噪声，来构造一个共同的预测。我们统计每个类上教师的投票数，再在这个数量上加一些拉布拉斯噪声或高斯噪声。对差分隐私文献熟悉的读者应该会对naisymax 机制有了解。当输入的两个类别从教师模型中得到相等（或近似相等）的票数的时候，噪声会保证又有最多投票数的类别将会是这两个类别中的随机的一个。而另一方面，如果大部分教师模型选择了一个类别，那么在投票结果中加早上不会改变那个类别获得最多的票数这个事实。这个巧妙的设置为加噪聚合机制的预测同时提供了准确性和隐私性，只要教师模型之间的共识度足够高。下图描绘的是教师模型之间共识度很高的情况：也就是向投票统计中添加噪声不会改变候选的标签的情况。</p>
-<p><img src="/2019/09/05/【笔记】隐私和机器学习/blog\hexo\source\_posts\【笔记】隐私和机器学习.assets\tlesmsxl6q.jpeg" alt="img"></p>
+<p><img src="/2019/09/05/【笔记】隐私和机器学习/tlesmsxl6q.jpeg" alt="img"></p>
 <p>实践中，privacy budget 主要取决于各个教师模型的共识度以及添加噪声的多少。教师模型之间的共识度越高，比如大多数票都投给同一个班级，那么它支持的 privacy budget 就越小。在某个特定的点上，在统计教师分配的票数之前加入更大的噪声也会带来比较小的隐私预算。回顾一下，privacy budget 越小，对应的隐私保障就越强。</p>
 <p><strong>PATE两点限制</strong></p>
 <p>聚合机制做出的每个预测都会增加总的 privacy budget。这意味着当有许多标签要预测的时候，总的 privacy budget 会变得特别大，而这时候提供的隐私保障就没什么意义了。 因此，API<br>必须给所有用户的查询数提供一个最大值（上限），并在达到上限的时候，去获取一组新的数据来学习一个新的教师模型聚合到其中。再者，我们不能公开发布教师模型的聚合，否则，攻击者可以通过审查发布的教师模型的内部参数，从而学习出训练所用的隐私数据。</p>
-<p>学生模型是通过一种隐私保护的方式，把从教师聚合模型中的取得的知识迁移过去来训练。当然，噪声聚合机制对此相当重要。学生从一组未标记的公共数据中选择输入，并将这些输入提交给聚合教师模型来标记它们。噪声聚合机制会对这些学生模型用来训练的隐私做出响应。在我们的工作中，我们实验了两个变种：PATE，只在有标记的输入（有监督方式）上训练学生模型，以及<br>PATE-G，在有标注和无标注（用生成对抗网络或者虚拟对抗训练这种半监督的方式）的输入上训练学生模型。<br><a href="https://github.com/HughWen/cleverhans-zh/blob/master/post/img/pate-full.png" target="_blank" rel="noopener"><img src="/2019/09/05/【笔记】隐私和机器学习/blog\hexo\source\_posts\【笔记】隐私和机器学习.assets\s26z80q6x1.jpeg" alt="img"></a></p>
+<p>学生模型是通过一种隐私保护的方式，把从教师聚合模型中的取得的知识迁移过去来训练。当然，噪声聚合机制对此相当重要。学生从一组未标记的公共数据中选择输入，并将这些输入提交给聚合教师模型来标记它们。噪声聚合机制会对这些学生模型用来训练的隐私做出响应。在我们的工作中，我们实验了两个变种：PATE，只在有标记的输入（有监督方式）上训练学生模型，以及<br>PATE-G，在有标注和无标注（用生成对抗网络或者虚拟对抗训练这种半监督的方式）的输入上训练学生模型。<br><a href="https://github.com/HughWen/cleverhans-zh/blob/master/post/img/pate-full.png" target="_blank" rel="noopener"><img src="/2019/09/05/【笔记】隐私和机器学习/s26z80q6x1.jpeg" alt="img"></a></p>
 <p><strong>精细聚合机制：</strong></p>
 <p>这种新机制 - Confident Aggregator (置信聚合器)，是具有选择性的。教师模型只需要对学生模型的部分查询做出回复。当教师模型产生了询问后，我们首先检查教师模型间的置信度是否足够高，如果教师模型中最普遍的标签的投票数大于阀值，我们就接受这个学生查询。如果没有，我们就拒绝它。阀值本身是随机选取的，从而为这个选择过程提供隐私。一旦选择了查询，我们就接着用原来的噪声聚合机制，我们为每个投票计数器添加噪声，并返回投票最多的表情，这个过程如下图所示（在有6 个类的任务之上，避免在二分类的条件下产生了带有误导性的简化）。</p>
 <p>在引用中，这意味着我们的 privacy budget 用于两件事情：选择和回答查询。然而，我们选择回答的查询的特点是教师之间达成了高共识度，因此回答这些问题所需的 privacy budget 很少。换句话说，我们可以把 Confident Aggregator 看出是一种机制，它能够过滤掉在原来的机制中消耗了大量 privacy budget 的查询，因此，在学生模型表现水平一致的情况下，Confident Aggregator 提供的总的 privacy budget 小于原来的加噪聚合机制的 privacy budget。下图可视化了这种改进，其用的是原来机制（Simple GNMax）和精准机制（Confident GNMax）在数据独立（data-dep）分析的时候，（学生模型）查询被回答的数量，其中我们应用了 Moments Accountant 或者 Renyi Differential Privacy. </p>
@@ -309,8 +309,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/09/05/【笔记】联邦迁移学习/" rel="prev" title="联邦迁移学习介绍">
-                  联邦迁移学习介绍 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/09/05/【笔记】机器学习安全及隐私保护研究进展/" rel="prev" title="机器学习安全及隐私保护的研究进展">
+                  机器学习安全及隐私保护的研究进展 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -470,6 +470,56 @@
   
 
   
+    
+      
+<script type="text/x-mathjax-config">
+    MathJax.Ajax.config.path['mhchem'] = '//cdn.jsdelivr.net/npm/mathjax-mhchem@3';
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        extensions: ['[mhchem]/mhchem.js'],
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
     
   
 

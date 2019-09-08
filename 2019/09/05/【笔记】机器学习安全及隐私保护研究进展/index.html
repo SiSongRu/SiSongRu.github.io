@@ -332,8 +332,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/" rel="next" title="机器学习安全性的一些问题">
-                  <i class="fa fa-chevron-left"></i> 机器学习安全性的一些问题
+                <a href="/2019/09/05/【笔记】隐私和机器学习/" rel="next" title="隐私和机器学习">
+                  <i class="fa fa-chevron-left"></i> 隐私和机器学习
                 </a>
               
             </div>
@@ -342,8 +342,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/09/05/【笔记】全同态加密是否完美/" rel="prev" title="全同态加密是否完美">
-                  全同态加密是否完美 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/09/05/【笔记】机器学习安全性问题及其防御技术研究综述/" rel="prev" title="机器学习安全性的一些问题">
+                  机器学习安全性的一些问题 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -503,6 +503,56 @@
   
 
   
+    
+      
+<script type="text/x-mathjax-config">
+    MathJax.Ajax.config.path['mhchem'] = '//cdn.jsdelivr.net/npm/mathjax-mhchem@3';
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        extensions: ['[mhchem]/mhchem.js'],
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
     
   
 
